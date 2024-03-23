@@ -1,4 +1,6 @@
-const { Blog } = require("../models");
+const Blog = require("../models/Blog");
+//leave curly brackets off for when you have one model
+
 const blogdata = [
   {
     title: "Test1",
@@ -13,7 +15,6 @@ const blogdata = [
     content: "Some content in here",
   },
 ];
-const seedBlog = async () => {
-  await Blog.bulkCreate(blogdata);
-};
+const seedBlog = () => Blog.bulkCreate(blogdata);
+
 module.exports = seedBlog;

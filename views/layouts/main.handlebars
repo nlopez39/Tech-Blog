@@ -16,15 +16,17 @@
     <a href="/">Home</a>
     {{!-- {{#if loggedIn}} --}}
     <a href="/dashboard">Dashboard</a>
-    <button id="logout" class="btn-no-style">Logout</button>
+    {{!-- <button id="logout" class="btn-no-style">Logout</button> --}}
     {{!-- {{else}} --}}
     <a href="/login">Login</a>
     {{!-- {{/if}} --}}
     <a href="/logout">Logout</a>
     
 </nav>
-
-
+{{!-- Add the Blog Data Here --}}
+<div class="blog-post">
+    {{{body}}}
+</div>
 
 </body>
 

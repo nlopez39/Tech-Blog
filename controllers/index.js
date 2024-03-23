@@ -1,7 +1,7 @@
 //this is the index.js for the server?
 const router = require("express").Router();
 
-const homeRoutes = require("./home-routes.js");
+const homeRoutes = require("./home-route.js");
 
 router.use("/", homeRoutes);
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blog } = require("../models");
+const Blog = require("../models/Blog");
 
 //GET all blogs for homepage
 router.get("/", async (req, res) => {
@@ -15,3 +15,4 @@ router.get("/", async (req, res) => {
     res.status(500).json(e);
   }
 });
+module.exports = router;
