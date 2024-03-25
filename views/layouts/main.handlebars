@@ -9,15 +9,14 @@
 
 </head>
 <body>
-<header>
-    <h1>This is the homepage Tech Blog</h1>
-</header>
+
 <nav>
     <a href="/">Home</a>
-    {{!-- {{#if loggedIn}} --}}
+  
     <a href="/dashboard">Dashboard</a>
-    {{!-- <button id="logout" class="btn-no-style">Logout</button> --}}
-    {{!-- {{else}} --}}
+    {{!-- {{#if loggedIn}}
+    <button id="logout" class="btn-no-style">Logout</button> 
+    {{else}} --}}
     <a href="/login">Login</a>
     {{!-- {{/if}} --}}
     <a href="/logout">Logout</a>
@@ -27,6 +26,9 @@
 <div class="blog-post">
     {{{body}}}
 </div>
+ {{!-- {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}} --}}
 
 </body>
 
