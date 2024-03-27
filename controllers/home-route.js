@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Blog = require("../models/Blog");
+const User = require("../models/User");
+const withAuth = require("../utils/auth");
 
 //GET all blogs for homepage
 router.get("/", async (req, res) => {
@@ -15,8 +17,43 @@ router.get("/", async (req, res) => {
     res.status(500).json(e);
   }
 });
+
+//get dashboard but must be logged in
+//use withAuth as middleware
+router.get("/dashboard", withAuth, async (req, res) => {
+  //render dashboard handlebarjs
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ["password"] },
+      include: [{ model: Blog, include: [User] }],
+    });
+    const user = userData.get({ plain: true });
+    res.render("dashboard", {
+      ...user,
+      loggedIn: true,
+    });
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
+//get createBlog
+router.get("/createBlog", async (req, res) => {
+  //render create blog handlebarjs
+  //renders create blog if user is logged in
+  try {
+    if (req.session.loggedIn) {
+      res.render("createBlog", {
+        loggedIn: req.session.loggedIn,
+        userId: req.session.user_id,
+      });
+    }
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 //login page
-router.get("/login", (req, res) => {
+router.all("/login", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/");
     return;
@@ -26,18 +63,11 @@ router.get("/login", (req, res) => {
 });
 //signup page
 router.get("/signup", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
   //render sign up handlebarjs
   res.render("signup");
-});
-//get dashboard
-router.get("/dashboard", (req, res) => {
-  //render dashboard handlebarjs
-  res.render("dashboard");
-});
-
-//get createBlog
-router.get("/createBlog", (req, res) => {
-  //render create blog handlebarjs
-  res.render("createBlog");
 });
 module.exports = router;

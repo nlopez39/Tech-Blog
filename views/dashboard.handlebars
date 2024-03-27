@@ -2,6 +2,7 @@
      <div class="dashboard-card">
     <h2 class="page-title">Your Dashboard</h2>
     <div>
+  
   {{#if blogs.length}}
   <div class="col-md-6 project-list">
     <h3>Current Projects:</h3>
@@ -16,6 +17,8 @@
       </div>
     </div>
     {{/each}}
+    {{else}}
+    <p>No blogs found</p>
   </div>
   {{/if}}
     <a href="/createBlog"><button class="create-btn">Create a post!</button></a>

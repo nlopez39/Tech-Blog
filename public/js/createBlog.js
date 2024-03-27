@@ -9,7 +9,7 @@ const createBlogHandler = async (event) => {
   if (title && content) {
     console.log("Hi this worked");
     //if they were fiilled in then send a POST method to the server
-    const response = await fetch("api/createdblog", {
+    const response = await fetch("api/posts", {
       method: "POST",
       body: JSON.stringify({ title, content }),
       headers: {
@@ -18,8 +18,8 @@ const createBlogHandler = async (event) => {
     });
     //if the response is successful then go back to the dashboard
     if (response.ok) {
-      document.location.replace("/dashboard");
       console.log("This worked");
+      document.location.replace("/dashboard");
     } else {
       alert("Failed to create project");
       console.log("This didn't work");
