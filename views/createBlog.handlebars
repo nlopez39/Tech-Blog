@@ -1,7 +1,7 @@
 <div id="new-post">
   <h3>Create a New Blog Post:</h3>
 
-  <form class="form new-project-form">
+  <form class="new-project-form">
     <div class="form-group">
       <label for="blog-title">Title</label>
       <input
@@ -26,5 +26,21 @@
       </button>
     </div>
   </form>
+  {{#if blogs.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Projects:</h3>
+
+    {{#each blogs as |blog|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/createBlog/{{blog.id}}">{{blog.title}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
 </div>
-<script src="/public/createBlog.js"></script>
+<script src="/Users/nellylopez/bootcamp/homework/homework-14/Tech-Blog/public/js/createBlog.js" ></script>
