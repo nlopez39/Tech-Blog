@@ -1,11 +1,26 @@
 <div class="row justify-space-between-md">
      <div class="dashboard-card">
     <h2 class="page-title">Your Dashboard</h2>
-    <div class="new-post">
-      
-    </div>
     <div>
-    <button class="newPost-button">New Post</button>
+  {{#if blogs.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Projects:</h3>
+
+    {{#each blogs as |blog|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/createBlog/{{blog.id}}">{{blog.title}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+    <a href="/createBlog"><button class="create-btn">Create a post!</button></a>
+  
    </div>
   </div>
 </div>
+{{!-- <script src="/public/dashboard.js"></script> --}}

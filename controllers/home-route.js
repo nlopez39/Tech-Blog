@@ -34,4 +34,10 @@ router.get("/dashboard", (req, res) => {
   //render dashboard handlebarjs
   res.render("dashboard");
 });
+
+//get createBlog
+router.get("/createBlog", (req, res) => {
+  //render create blog handlebarjs
+  res.render("createBlog");
+});
 module.exports = router;
