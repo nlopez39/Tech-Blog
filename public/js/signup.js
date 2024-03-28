@@ -4,11 +4,13 @@ const signupEventHandler = async (event) => {
   const password = document.querySelector("#password-signup").value.trim();
   //if email and password were filled in then save by sending it to signup API endpoint
   if (email && password) {
+    console.log("this one worked");
     const response = await fetch("api/users", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     });
+
     if (response.ok) {
       document.location.replace("/dashboard");
     } else {
