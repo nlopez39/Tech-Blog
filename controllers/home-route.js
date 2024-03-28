@@ -1,12 +1,17 @@
 const router = require("express").Router();
-const Blog = require("../models/Blog");
-const User = require("../models/User");
+const { Blog, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 //GET all blogs for homepage
 router.get("/", async (req, res) => {
   try {
-    const dbBlog = await Blog.findAll();
+    const dbBlog = await Blog.findAll({
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
     const blogs = dbBlog.map((blog) => blog.get({ plain: true }));
     res.render("homepage", {
       blogs,
@@ -23,16 +28,25 @@ router.get("/", async (req, res) => {
 router.get("/dashboard", withAuth, async (req, res) => {
   //render dashboard handlebarjs
   try {
-    const userData = await User.findByPk(req.session.user_id, {
+    console.log("This dashboard was trued");
+    const dbUser = await Blog.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
       attributes: { exclude: ["password"] },
-      include: [{ model: Blog, include: [User] }],
+      include: [
+        {
+          model: User,
+        },
+      ],
     });
-    const user = userData.get({ plain: true });
+    const blogs = dbUser.map((blog) => blog.get({ plain: true }));
     res.render("dashboard", {
-      ...user,
+      blogs,
       loggedIn: true,
     });
   } catch (e) {
+    console.log(e);
     res.status(500).json(e);
   }
 });
