@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 router.get("/dashboard", withAuth, async (req, res) => {
   //render dashboard handlebarjs
   try {
-    console.log("This dashboard was trued");
+    console.log("This dashboard was tried");
     const dbUser = await Blog.findAll({
       where: {
         user_id: req.session.user_id,
@@ -41,6 +41,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
       ],
     });
     const blogs = dbUser.map((blog) => blog.get({ plain: true }));
+    console.log("blogs", dbUser);
     res.render("dashboard", {
       blogs,
       loggedIn: true,
